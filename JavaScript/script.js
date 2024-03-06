@@ -25,7 +25,7 @@ class Tablero {
         for (let i = 0; i < this.fx; i++) {
             for (let j = 0; j < this.fy; j++) {
                 let casilla = this.tablero[i][j]
-                casilla.mina = 0
+                //casilla.mina = 0
                 if (i > 0 && j > 0 && this.tablero[i - 1][j - 1].mina) {
                     casilla.adyacentes++
                 }
@@ -123,6 +123,14 @@ function revelarCasilla(e) {
     console.log(`Casilla revelada en (${coordenadaX}, ${coordenadaY})`);
     if(tablero.tablero[coordenadaX][coordenadaY].mina){
         this.style.backgroundColor = "red"
+        alert("Perdiste")
+        for (let i = 0; i < tablero.fx; i++) {
+            for (let j = 0; j < tablero.fy; j++) {
+                if(tablero.tablero[i][j].mina){
+                    document.querySelector(`[coordenadaX="${i}"][coordenadaY="${j}"]`).style.backgroundColor = "red"
+                }
+            }
+        }
     }else{
         this.style.backgroundColor = "grey"
         this.textContent=tablero.tablero[coordenadaX][coordenadaY].adyacentes
