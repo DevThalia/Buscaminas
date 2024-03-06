@@ -1,0 +1,31 @@
+.casilla{
+    background-color: rgb(102, 183, 198);
+    width :30px;
+    height: 30px;
+    padding: 10px;
+    margin: 0.5em;
+    border-radius: 10px;
+    
+}
+
+#tablero{
+    background-color: rgb(58, 97, 160);
+    margin: auto;
+    width: fit-content;
+    border-radius: 15px;
+}
+
+#filaDiv{
+    display: flex;
+}
+
+.casillaRevelada{
+    background-color: rgb(255, 195, 127);
+}
+
+h1{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight:500;
+    padding: 20px;
+}
