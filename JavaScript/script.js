@@ -123,7 +123,7 @@ function revelarCasilla(e) {
     console.log(`Casilla revelada en (${coordenadaX}, ${coordenadaY})`);
     if(tablero.tablero[coordenadaX][coordenadaY].mina){
         this.style.backgroundColor = "red"
-        alert("Perdiste")
+        alert("Game over!")
         for (let i = 0; i < tablero.fx; i++) {
             for (let j = 0; j < tablero.fy; j++) {
                 if(tablero.tablero[i][j].mina){
