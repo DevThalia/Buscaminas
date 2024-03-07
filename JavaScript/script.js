@@ -88,7 +88,7 @@ function anadirDOM(tablero) {
             casilla.setAttribute("coordenadaY", j);
 
             casilla.addEventListener("click", revelarCasilla);
-            casilla.addEventListener("contextmenu", colocarBandera);
+            casilla.addEventListener("dblclick", colocarBandera);
             filaDOM.appendChild(casilla);
         }
         contenedor.appendChild(filaDOM);
