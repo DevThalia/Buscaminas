@@ -1,4 +1,9 @@
 class Tablero {
+    fx
+    fy
+    numMinas
+    numBanderas
+    tablero
     //constructor
     constructor(fx, fy, numMinas, numBanderas) {
         this.fx = fx
@@ -70,31 +75,16 @@ class Tablero {
 }
 
 class Casilla {
+    mina
+    adyacentes
+    descubierta
+    bandera
+
     constructor() {
         this.mina = 0
         this.adyacentes = 0
         this.descubierta = false
         this.bandera = false
-    }
-
-    //metodos
-
-    descubrirCasilla() {
-        if (!this.descubierta) {
-            this.descubierta = true
-            if (this.mina) {
-                return true
-            }
-        }
-        return false
-    }
-
-    colocarBandera() {
-        if (this.bandera == true) {
-            this.bandera = false
-        } else if (this.bandera == false) {
-            this.bandera = true
-        }
     }
 }
 
@@ -111,6 +101,7 @@ function anadirDOM(tablero) {
             casilla.setAttribute("coordenadaY",j);
              
             casilla.addEventListener("click",revelarCasilla);
+            casilla.addEventListener("contextmenu",colocarBandera);
             filaDOM.appendChild(casilla);
         }
         contenedor.appendChild(filaDOM);
@@ -137,6 +128,23 @@ function revelarCasilla(e) {
     }
 
 }
+
+function colocarBandera(e) {
+    const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
+    const coordenadaY = parseInt(this.getAttribute("coordenadaY"));
+    console.log(`Bandera colocada en (${coordenadaX}, ${coordenadaY})`);
+    if(tablero.tablero[coordenadaX][coordenadaY].bandera){
+        this.style.backgroundColor = "blue"
+    }else{
+        this.style.backgroundColor = "white"
+    }
+}
+
+function jugarDeNuevo(){
+    location.reload();
+
+}
+
 
 function init() {
     tablero.colocarBombas()
