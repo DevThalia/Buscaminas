@@ -1,31 +1,71 @@
-.casilla{
-    background-color: rgb(102, 183, 198);
-    width :30px;
+.casilla {
+    background-color: rgb(103, 255, 141);
+    width: 30px;
     height: 30px;
-    padding: 10px;
-    margin: 0.5em;
+    padding: 5px;
+    margin: 5px;
     border-radius: 10px;
-    
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px rgba(103, 255, 141, 0.5);
 }
 
-#tablero{
-    background-color: rgb(58, 97, 160);
+#tablero {
+    background-color: rgb(17, 138, 17);
     margin: auto;
     width: fit-content;
-    border-radius: 15px;
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: 0 0 20px rgba(0, 128, 0, 0.7);
 }
 
-#filaDiv{
+#filaDiv {
     display: flex;
+    justify-content: center;
 }
 
-.casillaRevelada{
-    background-color: rgb(255, 195, 127);
+#jugarDeNuevo {
+    border-radius: 15px;
+    background-color: rgb(128, 255, 0);
+    cursor: pointer;
+    display: block;
+    padding: 15px;
+    margin: 20px auto;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px rgba(128, 255, 0, 0.5);
 }
 
-h1{
+h1 {
+    font-size: 40px;
     text-align: center;
     text-transform: uppercase;
-    font-weight:500;
+    font-weight: 700;
     padding: 20px;
+    color: rgb(128, 255, 0);
+}
+
+body {
+    background-color: rgb(40, 40, 40);
+    font-family: 'Arial', sans-serif;
+    color: rgb(255, 255, 255);
+}
+
+.rowdies-light {
+    font-family: "Rowdies", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.rowdies-regular {
+    font-family: "Rowdies", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.rowdies-bold {
+    font-family: "Rowdies", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }

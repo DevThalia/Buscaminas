@@ -109,6 +109,9 @@ function anadirDOM(tablero) {
 }
 
 function revelarCasilla(e) {
+    let cellsToReveal = tablero.fx * tablero.fy - tablero.numMinas;
+    let revealedCells = 0;
+
     const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
     const coordenadaY = parseInt(this.getAttribute("coordenadaY"));
     console.log(`Casilla revelada en (${coordenadaX}, ${coordenadaY})`);
@@ -127,6 +130,12 @@ function revelarCasilla(e) {
         this.textContent=tablero.tablero[coordenadaX][coordenadaY].adyacentes
     }
 
+    if (!tablero.tablero[coordenadaX][coordenadaY].mina) {
+        revealedCells++;
+        if (revealedCells === cellsToReveal) {
+            alert("You Win!");
+        }
+    }
 }
 
 function colocarBandera(e) {
