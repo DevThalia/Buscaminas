@@ -1,28 +1,10 @@
-function anadirDOM(tablero) {
-    let contenedor = document.getElementById("tablero");
-    for (let i = 0; i < tablero.fx; i++) {
-        let filaDOM = document.createElement('div');
-        filaDOM.setAttribute("id", "filaDiv")
-        for (let j = 0; j < tablero.fy; j++) {
-            let casilla = document.createElement('div');
 
-            casilla.classList.add("casilla");
-            casilla.setAttribute("coordenadaX", i);
-            casilla.setAttribute("coordenadaY", j);
-
-            casilla.addEventListener("click", revelarCasilla);
-            casilla.addEventListener("dblclick", colocarBandera);
-            filaDOM.appendChild(casilla);
-        }
-        contenedor.appendChild(filaDOM);
-    }
-}
-
+let tablero;
+let revealedCells = 0;
 function revelarCasilla(e) {
-    console.log();
-    let cellsToReveal = (tablero.fx * tablero.fy) - 2;
-    let revealedCells = 0;
+    let cellsToReveal = tablero.fx * tablero.fy - tablero.numMinas;
     console.log(cellsToReveal);
+    console.log(tablero.numMinas);
 
     const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
     const coordenadaY = parseInt(this.getAttribute("coordenadaY"));
@@ -43,11 +25,9 @@ function revelarCasilla(e) {
         this.textContent = tablero.tablero[coordenadaX][coordenadaY].adyacentes;
         revealedCells++;
         console.log(revealedCells);
-    }
-    if(revealedCells === cellsToReveal){
+    } if (revealedCells === cellsToReveal) {
         alert("You win!");
     }
- 
 }
 
 
@@ -66,9 +46,31 @@ function jugarDeNuevo() {
     location.reload();
 }
 
+function anadirDOM(tablero) {
+    let contenedor = document.getElementById("tablero");
+    for (let i = 0; i < tablero.fx; i++) {
+        let filaDOM = document.createElement('div');
+        filaDOM.setAttribute("id", "filaDiv")
+        for (let j = 0; j < tablero.fy; j++) {
+            let casilla = document.createElement('div');
+
+            casilla.classList.add("casilla");
+            casilla.setAttribute("coordenadaX", i);
+            casilla.setAttribute("coordenadaY", j);
+
+            filaDOM.appendChild(casilla);
+            casilla.addEventListener("click", revelarCasilla);
+            casilla.addEventListener("dblclick", colocarBandera);
+
+        }
+        contenedor.appendChild(filaDOM);
+    }
+}
+
 function init() { 
-    let tablero = new Tablero(4, 4, 2);
+    tablero = new Tablero(4, 4, 2);
     tablero.colocarBombas();
+    console.log("numero de minas: " + tablero.numMinas);
     tablero.calcularCasillasAdyacentes();
     anadirDOM(tablero);
 }

@@ -1,9 +1,9 @@
 class Tablero {
-    constructor(fx, fy, numMinas, numBanderas) {
+    constructor(fx, fy, numMinas) {
         this.fx = fx;
         this.fy = fy;
         this.numMinas = numMinas;
-        this.numBanderas = numBanderas;
+        this.numBanderas = numMinas;
         this.tablero = this.generarTablero();
     }
 
@@ -57,11 +57,12 @@ class Tablero {
         while (this.numMinas > 0) {
             let randomX = Math.floor(Math.random() * this.fx);
             let randomY = Math.floor(Math.random() * this.fy);
-            if (!this.tablero[randomX][randomY].mina) {
+            if (this.tablero[randomX][randomY].mina !== 1) {
                 this.tablero[randomX][randomY].mina = 1;
                 console.log(`Bomba en (${randomX}, ${randomY})`);
                 this.numMinas--;
             }
         }
     }
+
 }
