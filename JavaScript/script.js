@@ -1,80 +1,3 @@
-class Casilla {
-    constructor() {
-        this.mina = 0;
-        this.adyacentes = 0;
-        this.descubierta = false;
-        this.bandera = false;
-    }
-}
-
-class Tablero {
-    constructor(fx, fy, numMinas, numBanderas) {
-        this.fx = fx;
-        this.fy = fy;
-        this.numMinas = numMinas;
-        this.numBanderas = numBanderas;
-        this.tablero = this.generarTablero();
-    }
-
-    generarTablero() {
-        let tablero = [];
-        for (let i = 0; i < this.fx; i++) {
-            let fila = [];
-            for (let j = 0; j < this.fy; j++) {
-                let casilla = new Casilla();
-                fila.push(casilla);
-            }
-            tablero.push(fila);
-        }
-        return tablero;
-    }
-
-    calcularCasillasAdyacentes() {
-        for (let i = 0; i < this.fx; i++) {
-            for (let j = 0; j < this.fy; j++) {
-                let casilla = this.tablero[i][j];
-
-                if (i > 0 && j > 0 && this.tablero[i - 1][j - 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i > 0 && this.tablero[i - 1][j].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i > 0 && j < this.fy - 1 && this.tablero[i - 1][j + 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (j > 0 && this.tablero[i][j - 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (j < this.fy - 1 && this.tablero[i][j + 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i < this.fx - 1 && j > 0 && this.tablero[i + 1][j - 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i < this.fx - 1 && this.tablero[i + 1][j].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i < this.fx - 1 && j < this.fy - 1 && this.tablero[i + 1][j + 1].mina) {
-                    casilla.adyacentes++;
-                }
-            }
-        }
-    }
-
-    colocarBombas() {
-        while (this.numMinas > 0) {
-            let randomX = Math.floor(Math.random() * this.fx);
-            let randomY = Math.floor(Math.random() * this.fy);
-            if (!this.tablero[randomX][randomY].mina) {
-                this.tablero[randomX][randomY].mina = 1;
-                console.log(`Bomba en (${randomX}, ${randomY})`);
-                this.numMinas--;
-            }
-        }
-    }
-}
-
 function anadirDOM(tablero) {
     let contenedor = document.getElementById("tablero");
     for (let i = 0; i < tablero.fx; i++) {
@@ -96,8 +19,10 @@ function anadirDOM(tablero) {
 }
 
 function revelarCasilla(e) {
-    let cellsToReveal = tablero.fx * tablero.fy - tablero.numMinas;
+    console.log();
+    let cellsToReveal = (tablero.fx * tablero.fy) - 2;
     let revealedCells = 0;
+    console.log(cellsToReveal);
 
     const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
     const coordenadaY = parseInt(this.getAttribute("coordenadaY"));
@@ -116,15 +41,15 @@ function revelarCasilla(e) {
     } else {
         this.style.backgroundColor = "lightgrey";
         this.textContent = tablero.tablero[coordenadaX][coordenadaY].adyacentes;
-    }
-
-    if (!tablero.tablero[coordenadaX][coordenadaY].mina) {
         revealedCells++;
-        if (revealedCells === cellsToReveal) {
-            alert("You Win!");
-        }
+        console.log(revealedCells);
     }
+    if(revealedCells === cellsToReveal){
+        alert("You win!");
+    }
+ 
 }
+
 
 function colocarBandera(e) {
     const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
@@ -141,11 +66,10 @@ function jugarDeNuevo() {
     location.reload();
 }
 
-function init() {
+function init() { 
+    let tablero = new Tablero(4, 4, 2);
     tablero.colocarBombas();
     tablero.calcularCasillasAdyacentes();
     anadirDOM(tablero);
-    console.log(tablero);
 }
 
-let tablero = new Tablero(4, 4, 2);
