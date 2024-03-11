@@ -5,6 +5,10 @@
     width: fit-content;
 }
 
+h1{
+    padding-bottom: 5px;
+}
+
 label{
     margin-top: 5px;
     margin-bottom: 5px;
@@ -19,5 +23,6 @@ button{
     border-style: solid;
     border-color: rgb(128, 255, 0);
     background-color: rgb(40, 40, 40);
+    cursor: pointer;
 }
 
