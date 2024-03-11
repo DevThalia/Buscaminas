@@ -11,8 +11,13 @@ label{
 }
 
 button{
+    color: white;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: rgb(103, 255, 141);
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(128, 255, 0);
+    background-color: rgb(40, 40, 40);
 }
 
