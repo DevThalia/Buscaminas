@@ -1,6 +1,7 @@
 
 let tablero;
 let revealedCells = 0;
+
 function revelarCasilla(e) {
     let cellsToReveal = tablero.fx * tablero.fy - tablero.numMinas;
     console.log(cellsToReveal);
@@ -29,7 +30,6 @@ function revelarCasilla(e) {
         alert("You win!");
     }
 }
-
 
 function colocarBandera(e) {
     const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
