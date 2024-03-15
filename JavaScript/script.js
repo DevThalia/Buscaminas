@@ -20,13 +20,45 @@ function revelarCasilla(e) {
         return;
     }
 
-    tablero.descubrirCasillasAdyacentes(coordenadaX, coordenadaY);
-    actualizarCasillaVisualmente(this, casilla);
+    if (casilla.adyacentes === 0 && !casilla.descubierta) { 
+        revelarCasillaAdyacenteRecursiva(coordenadaX, coordenadaY); 
+    } else {
+        actualizarCasillaVisualmente(this, casilla);
+        revealedCells++;
+
+        if (revealedCells === cellsToReveal) {
+            gameWon = true;
+            alert("You win!");
+        }
+    }
+}
+
+function revelarCasillaAdyacenteRecursiva(x, y) {
+    if (x < 0 || x >= tablero.fx || y < 0 || y >= tablero.fy) {
+        return;
+    }
+
+    const casilla = tablero.casillas[x][y];
+    if (casilla.descubierta || casilla.mina) {
+        return;
+    }
+
+    casilla.descubierta = true;
+    actualizarCasillaVisualmente(document.querySelector(`[coordenadaX="${x}"][coordenadaY="${y}"]`), casilla);
     revealedCells++;
 
     if (revealedCells === cellsToReveal) {
         gameWon = true;
         alert("You win!");
+        return; 
+    }
+
+    if (casilla.adyacentes === 0) { 
+        for (let i = Math.max(0, x - 1); i <= Math.min(tablero.fx - 1, x + 1); i++) {
+            for (let j = Math.max(0, y - 1); j <= Math.min(tablero.fy - 1, y + 1); j++) {
+                revelarCasillaAdyacenteRecursiva(i, j); 
+            }
+        }
     }
 }
 

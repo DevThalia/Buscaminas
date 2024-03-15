@@ -49,22 +49,4 @@ class Tablero {
         }
     }
 
-    descubrirCasillasAdyacentes(x, y) {
-        if (x < 0 || x >= this.fx || y < 0 || y >= this.fy) {
-            return;
-        }
-        let casilla = this.casillas[x][y];
-
-        if (casilla.descubierta || casilla.mina) {
-            return;
-        }
-
-        casilla.descubierta = true;
-
-        for (let i = x - 1; i <= x + 1; i++) {
-            for (let j = y - 1; j <= y + 1; j++) {
-                this.descubrirCasillasAdyacentes(i, j);
-            }
-        }
-    }
 }
