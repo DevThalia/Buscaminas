@@ -4,50 +4,34 @@ class Tablero {
         this.fy = fy;
         this.numMinas = numMinas;
         this.numBanderas = numMinas;
-        this.tablero = this.generarTablero();
+        this.casillas = this.generarTablero();
     }
 
     generarTablero() {
-        let tablero = [];
+        let casillas = [];
         for (let i = 0; i < this.fx; i++) {
             let fila = [];
             for (let j = 0; j < this.fy; j++) {
                 let casilla = new Casilla();
                 fila.push(casilla);
             }
-            tablero.push(fila);
+            casillas.push(fila);
         }
-        return tablero;
+        return casillas;
     }
 
     calcularCasillasAdyacentes() {
         for (let i = 0; i < this.fx; i++) {
             for (let j = 0; j < this.fy; j++) {
-                let casilla = this.tablero[i][j];
-
-                if (i > 0 && j > 0 && this.tablero[i - 1][j - 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i > 0 && this.tablero[i - 1][j].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i > 0 && j < this.fy - 1 && this.tablero[i - 1][j + 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (j > 0 && this.tablero[i][j - 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (j < this.fy - 1 && this.tablero[i][j + 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i < this.fx - 1 && j > 0 && this.tablero[i + 1][j - 1].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i < this.fx - 1 && this.tablero[i + 1][j].mina) {
-                    casilla.adyacentes++;
-                }
-                if (i < this.fx - 1 && j < this.fy - 1 && this.tablero[i + 1][j + 1].mina) {
-                    casilla.adyacentes++;
+                let casilla = this.casillas[i][j];
+                for (let x = Math.max(0, i - 1); x <= Math.min(i + 1, this.fx - 1); x++) {
+                    for (let y = Math.max(0, j - 1); y <= Math.min(j + 1, this.fy - 1); y++) {
+                        if (x !== i || y !== j) {
+                            if (this.casillas[x][y].mina) {
+                                casilla.adyacentes++;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -57,12 +41,30 @@ class Tablero {
         while (this.numMinas > 0) {
             let randomX = Math.floor(Math.random() * this.fx);
             let randomY = Math.floor(Math.random() * this.fy);
-            if (this.tablero[randomX][randomY].mina !== 1) {
-                this.tablero[randomX][randomY].mina = 1;
+            if (!this.casillas[randomX][randomY].mina) {
+                this.casillas[randomX][randomY].mina = 1;
                 console.log(`Bomba en (${randomX}, ${randomY})`);
                 this.numMinas--;
             }
         }
     }
 
+    descubrirCasillasAdyacentes(x, y) {
+        if (x < 0 || x >= this.fx || y < 0 || y >= this.fy) {
+            return;
+        }
+        let casilla = this.casillas[x][y];
+
+        if (casilla.descubierta || casilla.mina) {
+            return;
+        }
+
+        casilla.descubierta = true;
+
+        for (let i = x - 1; i <= x + 1; i++) {
+            for (let j = y - 1; j <= y + 1; j++) {
+                this.descubrirCasillasAdyacentes(i, j);
+            }
+        }
+    }
 }

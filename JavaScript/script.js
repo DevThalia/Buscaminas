@@ -1,41 +1,60 @@
 
 let tablero;
 let revealedCells = 0;
+let cellsToReveal = 16 - 2;
+let gameOver = false;
+let gameWon = false;
 
 function revelarCasilla(e) {
-    let cellsToReveal = tablero.fx * tablero.fy - tablero.numMinas;
-    console.log(cellsToReveal);
-    console.log(tablero.numMinas);
+    if (gameOver || gameWon) return;
 
     const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
     const coordenadaY = parseInt(this.getAttribute("coordenadaY"));
-    console.log(`Casilla revelada en (${coordenadaX}, ${coordenadaY})`);
+    const casilla = tablero.casillas[coordenadaX][coordenadaY];
 
-    if (tablero.tablero[coordenadaX][coordenadaY].mina) {
+    if (casilla.mina) {
         this.style.backgroundColor = "red";
+        gameOver = true;
+        mostrarMinas();
         alert("Game over!");
-        for (let i = 0; i < tablero.fx; i++) {
-            for (let j = 0; j < tablero.fy; j++) {
-                if (tablero.tablero[i][j].mina) {
-                    document.querySelector(`[coordenadaX="${i}"][coordenadaY="${j}"]`).style.backgroundColor = "red";
-                }
-            }
-        }
-    } else {
-        this.style.backgroundColor = "lightgrey";
-        this.textContent = tablero.tablero[coordenadaX][coordenadaY].adyacentes;
-        revealedCells++;
-        console.log(revealedCells);
-    } if (revealedCells === cellsToReveal) {
+        return;
+    }
+
+    tablero.descubrirCasillasAdyacentes(coordenadaX, coordenadaY);
+    actualizarCasillaVisualmente(this, casilla);
+    revealedCells++;
+
+    if (revealedCells === cellsToReveal) {
+        gameWon = true;
         alert("You win!");
     }
 }
 
+function mostrarMinas() {
+    for (let i = 0; i < tablero.fx; i++) {
+        for (let j = 0; j < tablero.fy; j++) {
+            if (tablero.casillas[i][j].mina) {
+                const casilla = document.querySelector(`[coordenadaX="${i}"][coordenadaY="${j}"]`);
+                casilla.style.backgroundColor = "red";
+            }
+        }
+    }
+}
+
+function actualizarCasillaVisualmente(casillaDOM, casilla) {
+    casillaDOM.style.backgroundColor = "lightgrey";
+    casillaDOM.textContent = casilla.adyacentes;
+}
+
 function colocarBandera(e) {
+    if (gameOver || gameWon) return;
+
     const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
     const coordenadaY = parseInt(this.getAttribute("coordenadaY"));
-    console.log(`Bandera colocada en (${coordenadaX}, ${coordenadaY})`);
-    if (tablero.tablero[coordenadaX][coordenadaY].bandera) {
+
+    tablero.casillas[coordenadaX][coordenadaY].bandera = !tablero.casillas[coordenadaX][coordenadaY].bandera;
+
+    if (tablero.casillas[coordenadaX][coordenadaY].bandera) {
         this.style.backgroundColor = "blue";
     } else {
         this.style.backgroundColor = "white";
@@ -48,6 +67,7 @@ function jugarDeNuevo() {
 
 function anadirDOM(tablero) {
     let contenedor = document.getElementById("tablero");
+    cellsToReveal = tablero.fx * tablero.fy - tablero.numMinas;
     for (let i = 0; i < tablero.fx; i++) {
         let filaDOM = document.createElement('div');
         filaDOM.setAttribute("id", "filaDiv")
@@ -60,18 +80,21 @@ function anadirDOM(tablero) {
 
             filaDOM.appendChild(casilla);
             casilla.addEventListener("click", revelarCasilla);
-            casilla.addEventListener("dblclick", colocarBandera);
+            casilla.addEventListener("contextmenu", function (e) {
+                e.preventDefault();
+                colocarBandera.call(this, e);
+            });
 
         }
         contenedor.appendChild(filaDOM);
     }
 }
 
-function init() { 
+function init() {
     tablero = new Tablero(4, 4, 2);
     tablero.colocarBombas();
     console.log("numero de minas: " + tablero.numMinas);
     tablero.calcularCasillasAdyacentes();
+    tablero.colocarBombas();
     anadirDOM(tablero);
 }
-
