@@ -12,6 +12,11 @@ function revelarCasilla(e) {
     const coordenadaY = parseInt(this.getAttribute("coordenadaY"));
     const casilla = tablero.casillas[coordenadaX][coordenadaY];
 
+    if (e.button === 2) {
+        colocarBandera.call(this, e);
+        return;
+    }
+
     if (casilla.mina) {
         this.style.backgroundColor = "red";
         gameOver = true;
@@ -32,6 +37,7 @@ function revelarCasilla(e) {
         }
     }
 }
+
 
 function revelarCasillaAdyacenteRecursiva(x, y) {
     if (x < 0 || x >= tablero.fx || y < 0 || y >= tablero.fy) {
@@ -81,6 +87,8 @@ function actualizarCasillaVisualmente(casillaDOM, casilla) {
 function colocarBandera(e) {
     if (gameOver || gameWon) return;
 
+    e.preventDefault();
+
     const coordenadaX = parseInt(this.getAttribute("coordenadaX"));
     const coordenadaY = parseInt(this.getAttribute("coordenadaY"));
 
@@ -111,6 +119,7 @@ function anadirDOM(tablero) {
             casilla.setAttribute("coordenadaY", j);
 
             filaDOM.appendChild(casilla);
+            
             casilla.addEventListener("click", revelarCasilla);
             casilla.addEventListener("contextmenu", function (e) {
                 e.preventDefault();
