@@ -6,7 +6,7 @@ Este repositorio contiene la interpretación del clásico juego del 'Buscaminas'
   
 ## Índice ⭐
 1. [La Estructura](#La-Estructura)
-2. [Retrospectiva](Retrospectiva)
+2. [Retrospectiva](#Retrospectiva)
 
 ## La Estructura
 - [Css](Css): Esta carpeta contiene los diferentes estilos de las páginas: [Style](Css/Style.css),  [formularioStyle](Css/formularioStyle.css) y [reset](Css/reset.css)
