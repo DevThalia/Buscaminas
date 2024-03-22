@@ -1,7 +1,7 @@
-# Archivos
+# Buscaminas
 Este repositorio contiene la interpretación del clásico juego del 'Buscaminas'. He utulizado Html para definir el esqueleto del proyecto, Css para darle color al juego y finalmente la guinda del pastel con JavaScript
 
-## Autores
+## Autora
 - Thalia2603 🐵
   
 ## Índice ⭐
