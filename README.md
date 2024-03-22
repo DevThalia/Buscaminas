@@ -10,8 +10,8 @@ Este repositorio contiene la interpretación del clásico juego del 'Buscaminas'
 4. [Archivos](#Archivos)
 
 ## La Estructura
-- [Css](Css): Esta carpeta contiene los diferentes estilos de las páginas
-- [Html](Html): Esta carpeta contiene los diferentes archivos Html ([buscaminas](Html/buscaminas.html) y ([formulario](Html/formulario.html)  
+- [Css](Css): Esta carpeta contiene los diferentes estilos de las páginas: [Style](Css/Style.css),  [formularioStyle](Css/formularioStyle.css) y [reset](Css/reset.css)
+- [Html](Html): Esta carpeta contiene los diferentes archivos Html:  [buscaminas](Html/buscaminas.html),[formulario](Html/formulario.html)  
 - [files](src/main/kotlin/files): Contiene user.txt
 - [models](src/main/kotlin/models): Contiene todas las clases
 
