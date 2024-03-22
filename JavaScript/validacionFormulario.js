@@ -15,8 +15,8 @@ function validarFormulario() {
     if (!validarCorreoITB(correo)) return false;
 
     guardarDatosFormulario(nombre, apellido, nickname, correo, fecha);
-
-    window.location.href = "Html/buscaminas.html";
+    //si todo es correcto nos redirigimos a buscaminas.html
+    window.location.href = "buscaminas.html";
     return true;
 }
 
