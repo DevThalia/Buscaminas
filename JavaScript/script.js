@@ -116,27 +116,29 @@ function colocarBandera(e) {
 }
 
 function verificarBanderas() {
-    let bombsCorrectlyFlagged = true;
+    let allFlagsCorrect = true;
+    let allMinesFlagged = true;
 
     for (let i = 0; i < tablero.fx; i++) {
         for (let j = 0; j < tablero.fy; j++) {
             const casilla = tablero.casillas[i][j];
             if (casilla.mina && !casilla.bandera) {
-                bombsCorrectlyFlagged = false; // Hay una mina sin bandera
+                allMinesFlagged = false; // Hay una mina sin bandera
             }
             if (!casilla.mina && casilla.bandera) {
-                bombsCorrectlyFlagged = false; // No hay mina pero hay bandera
+                allFlagsCorrect = false; // No hay mina pero hay bandera
             }
         }
     }
 
-    bombsFlaggedCorrectly = bombsCorrectlyFlagged;
-
-    if (revealedCells === cellsToReveal && bombsFlaggedCorrectly) {
+    if (allMinesFlagged) {
         gameWon = true;
         mostrarYouWin();
     }
+
+    return allFlagsCorrect;
 }
+
 
 function mostrarMinas() {
     for (let i = 0; i < tablero.fx; i++) {
