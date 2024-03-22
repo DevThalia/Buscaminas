@@ -16,7 +16,7 @@ function validarFormulario() {
 
     guardarDatosFormulario(nombre, apellido, nickname, correo, fecha);
 
-    window.location.href = "buscaminas.html";
+    window.location.href = "Html/buscaminas.html";
     return true;
 }
 
