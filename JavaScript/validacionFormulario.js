@@ -4,17 +4,24 @@ function validarFormulario() {
     var nickname = obtenerValorCampo("nickname");
     var correo = obtenerValorCampo("correo");
     var fecha = obtenerValorCampo("fecha");
+    var columnas = obtenerValorCampo("columnas");
+    var filas = obtenerValorCampo("filas");
+    var bombas = obtenerValorCampo("bombas");
 
     if (!validarCampoLleno(nombre, "nombre")) return false;
     if (!validarCampoLleno(apellido, "apellido")) return false;
     if (!validarCampoLleno(nickname, "nickname")) return false;
     if (!validarCampoLleno(correo, "correo")) return false;
     if (!validarCampoLleno(fecha, "fecha")) return false;
+    if (!validarCampoLleno(columnas, "columnas")) return false;
+    if (!validarCampoLleno(filas, "filas")) return false;
+    if (!validarCampoLleno(bombas, "bombas")) return false;
+
     if (!validarEdadMayorDeEdad(fecha)) return false;
     if (!validarNickAcabaEnNumero(nickname)) return false;
     if (!validarCorreoITB(correo)) return false;
 
-    guardarDatosFormulario(nombre, apellido, nickname, correo, fecha);
+    guardarDatosFormulario(nombre, apellido, nickname, correo, fecha,columnas,filas,bombas);
     //si todo es correcto nos redirigimos a buscaminas.html
     window.location.href = "buscaminas.html";
     return true;
@@ -59,13 +66,16 @@ function validarCorreoITB(correo) {
     return true;
 }
 
-function guardarDatosFormulario(nombre, apellido, nickname, correo, fecha) {
+function guardarDatosFormulario(nombre, apellido, nickname, correo, fecha,columnas,filas,bombas) {
     var formData = {
         nombre: nombre,
         apellido: apellido,
         nickname: nickname,
         correo: correo,
-        fecha: fecha
+        fecha: fecha,
+        columnas: columnas,
+        filas: filas,
+        bombas: bombas
     };
     localStorage.setItem('formData', JSON.stringify(formData));
 }
@@ -73,4 +83,12 @@ function guardarDatosFormulario(nombre, apellido, nickname, correo, fecha) {
 function mostrarError(mensaje) {
     var mensajeError = document.getElementById("mensajeError");
     mensajeError.innerHTML = mensaje;
+}
+
+
+function enviarDatos() {
+    var columnas = document.getElementById('columnas').value;
+    var filas = document.getElementById('filas').value;
+    var bombas = document.getElementById('bombas').value;
+    window.location.href = "buscaminas.html?columnas=" + columnas + "&filas=" + filas + "&bombas=" + bombas;
 }

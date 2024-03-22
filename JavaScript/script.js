@@ -167,8 +167,17 @@ function mostrarYouWin() {
     mostrarMinas();
 }
 
-function init() {
-    tablero = new Tablero(4, 4, 2);
+window.onload = function() {
+    const parametrosURL = new URLSearchParams(window.location.search);
+    const columnas = parseInt(parametrosURL.get('columnas'));
+    const filas = parseInt(parametrosURL.get('filas'));
+    const bombas = parseInt(parametrosURL.get('bombas'));
+    init(columnas, filas, bombas);
+};
+
+
+function init(columnas,filas,bombas) {
+    tablero = new Tablero(columnas, filas, bombas);
     tablero.colocarBombas();
     console.log("numero de minas: " + tablero.numMinas);
     tablero.calcularCasillasAdyacentes();
