@@ -23,7 +23,6 @@ function validarFormulario() {
 
     guardarDatosFormulario(nombre, apellido, nickname, correo, fecha,columnas,filas,bombas);
     //si todo es correcto nos redirigimos a buscaminas.html
-    window.location.href = "buscaminas.html";
     return true;
 }
 
@@ -90,5 +89,5 @@ function enviarDatos() {
     var columnas = document.getElementById('columnas').value;
     var filas = document.getElementById('filas').value;
     var bombas = document.getElementById('bombas').value;
-    window.location.href = "buscaminas.html?columnas=" + columnas + "&filas=" + filas + "&bombas=" + bombas;
+    return validarFormulario();
 }

@@ -161,7 +161,7 @@ function jugarDeNuevo() {
 }
 
 function mostrarYouWin() {
-    let (tablero. result = document.getElementById('result'));
+    result = document.getElementById('result');
     result.innerHTML = "You win!";
     result.classList.add("result");
     mostrarMinas();
